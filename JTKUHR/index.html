@@ -1,0 +1,479 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><title>AVG - C.N开发文档 | 晝行燈</title><meta name="keywords" content="游戏开发"><meta name="description" content="博客"><meta property="og:type" content="article"><meta property="og:title" content="AVG - C.N开发文档"><meta property="og:url" content="https://glyphite.github.io/JTKUHR/"><meta property="og:site_name" content="晝行燈"><meta property="og:description" content="博客"><meta property="og:locale" content="zh_CN"><meta property="article:author" content="Mansifield"><meta property="article:tag" content="游戏开发"><meta name="twitter:card" content="summary_large_image"><link rel="stylesheet" href="/css/style/main.css"><link rel="stylesheet" id="hl-default-theme" href="/css/highlight/pygments.css" media="all"><link rel="stylesheet" id="hl-dark-theme" href="/css/highlight/pygments.dark.css" media="none"><link rel="stylesheet" href="/css/style/dark.css"><script src="/js/darkmode.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><div id="app" tabindex="-1"><header class="header"><div class="header__left"><a href="/" class="button"><span class="logo__text">主页</span></a></div><div class="header__right"><div class="navbar__menus"><a href="/tags/" class="navbar-menu button">标签</a> <a href="/archives/" class="navbar-menu button">归档</a> <a href="/about/" class="navbar-menu button">关于</a></div><a href="/search/" id="btn-search"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg> </a><a href="javaScript:void(0);" id="btn-toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg> </a><a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="24" height="24" fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a><div class="dropdown-menus" id="dropdown-menus"><a href="/tags/" class="dropdown-menu button">标签</a> <a href="/archives/" class="dropdown-menu button">归档</a> <a href="/about/" class="dropdown-menu button">关于</a></div></div></header><div class="cover"><div class="cover__logo"><img no-lazy alt="author Image" class="cover__avatar" src="/logo.svg"></div><div class="cover__intro"><p>白日昏灯，且照人间路</p></div></div><main class="main"><div class="post-wrapper"><div class="post-title"><h1 class="post-title__text">AVG - C.N开发文档</h1><div class="post-title__meta"><a href="/archives/2025/08/" class="post-meta__date button">乙巳年 08月06日</a></div></div><div class="post-container"><article class="post post__with-toc content-card"><div class="post__header"></div><div class="post__content"><h2 id="1">1. 项目概述</h2>
+<h3 id="11">1.1 项目简介</h3>
+<p>本项目旨在开发一款以时间回溯为主题的视觉小说游戏，基于Godot 4.4引擎实现。游戏将包含对话系统、背景切换、音频管理、选项分支、好感系统、章节选择和记录查看等核心功能，为玩家提供沉浸式的视觉小说体验。</p>
+<h3 id="12">1.2 核心功能</h3>
+<ul>
+<li><strong>对话系统</strong>：支持角色对话、旁白、内心独白等多种文本展示方式</li>
+<li><strong>背景管理</strong>：支持背景图片切换，包含淡入淡出等过渡效果</li>
+<li><strong>音频系统</strong>：支持BGM和SFX的播放与管理</li>
+<li><strong>选项系统</strong>：支持多层级选项分支，影响剧情走向</li>
+<li><strong>好感系统</strong>：记录玩家与游戏角色的互动关系</li>
+<li><strong>章节回溯</strong>：允许玩家选择已解锁的章节回溯剧情</li>
+<li><strong>记录查看</strong>：允许玩家查看已解锁的CG、音乐和剧情记录</li>
+</ul>
+<h2 id="2">2. 主要架构</h2>
+<h3 id="21-dialoguesystem">2.1 对话系统 (DialogueSystem)</h3>
+<p>对话系统是游戏的核心组件，负责解析对话文件、构建对话层级结构和管理对话流程。</p>
+<p><strong>主要功能</strong>：<br />
+- 解析文本文件中的对话、选项、配置和跳转指令<br />
+- 构建对话层级结构，处理选项的父子关系<br />
+- 管理当前对话行和对话推进</p>
+<h3 id="22-main">2.2 主控制器 (Main)</h3>
+<p>主控制器负责协调各个系统组件，处理用户输入，管理UI显示和场景转换。</p>
+<p><strong>主要功能</strong>：<br />
+- 处理用户输入（鼠标点击、键盘按键）<br />
+- 推进对话流程<br />
+- 处理选项分支<br />
+- 管理背景切换和过渡效果<br />
+- 控制音频播放</p>
+<h3 id="23-player">2.3 玩家系统 (Player)</h3>
+<p>玩家系统负责管理玩家属性、技能和游戏进度。</p>
+<p><strong>主要功能</strong>：<br />
+- 存储玩家基本属性（等级、生命、技能等）<br />
+- 管理玩家技能和天赋<br />
+- 记录游戏进度和解锁状态</p>
+<p><strong>关键属性</strong>：<br />
+- 基础属性：生命<br />
+- 技能系统：参照《极乐迪斯科》设计，分为体格、身手、意志、灵感、魅力和信用六大类，每类四个技能</p>
+<h3 id="24-menu">2.4 菜单系统 (Menu)</h3>
+<p>菜单系统负责管理游戏的主菜单界面，提供设置、回忆录、制作人员和退出等功能入口。</p>
+<p><strong>主要功能</strong>：<br />
+- 提供游戏主菜单界面<br />
+- 管理章节选择和记录查看功能<br />
+- 处理游戏设置和退出</p>
+<p><strong>关键方法</strong>：<br />
+- <code>_on_memoirs_pressed()</code>: 进入回忆录（章节选择）界面<br />
+- <code>_on_quit_pressed()</code>: 退出游戏</p>
+<h2 id="3">3. 功能实现</h2>
+<h3 id="31">3.1 对话系统实现</h3>
+<h4 id="311">3.1.1 对话文件格式</h4>
+<p>对话文件采用纯文本的自然语言格式，支持以下语法：</p>
+<ul>
+<li><strong>对话</strong>：<code>角色名: "对话内容"</code></li>
+<li><strong>选项</strong>：<code>- 选项文本</code>（缩进表示层级关系）</li>
+<li><strong>配置</strong>：<code>[key=value]</code>（如背景、音频等）</li>
+<li><strong>跳转</strong>：<code>-&gt;target</code>（跳转到指定行或场景）</li>
+</ul>
+<p>示例：</p>
+<div class="highlight"><pre><span></span><code>主角: &quot;这是一段对话。&quot;
+[bg = scene1.png]
+- 选择选项1
+  主角: &quot;你选择了选项1。&quot;
+- 选择选项2
+  主角: &quot;你选择了选项2。&quot;
+  - 子选项1
+    主角: &quot;你选择了子选项1。&quot;
+  - 子选项2
+    主角: &quot;你选择了子选项2。&quot;
+-&gt;scene:next_scene.txt
+</code></pre></div>
+
+<h4 id="312">3.1.2 对话解析流程</h4>
+<ol>
+<li>加载对话文件并按行解析</li>
+<li>使用正则表达式识别不同类型的行（对话、选项、配置、跳转）</li>
+<li>构建对话层级结构，处理选项的父子关系</li>
+<li>按顺序处理对话行，执行相应的操作</li>
+</ol>
+<h3 id="32">3.2 选项系统实现</h3>
+<h4 id="321">3.2.1 选项显示与选择</h4>
+<ol>
+<li>遇到选项行时，收集同级选项并显示</li>
+<li>玩家选择选项后，跳转到选项对应的分支</li>
+<li>处理分支内容，直到分支结束</li>
+<li>跳转到分支结束后的下一行继续执行</li>
+</ol>
+<h4 id="322">3.2.2 多层级选项处理</h4>
+<ol>
+<li>使用缩进表示选项的层级关系</li>
+<li>构建选项的父子关系，形成树状结构</li>
+<li>使用选项栈管理多层级选项的处理</li>
+<li>处理完子选项后，返回父选项的处理流程</li>
+</ol>
+<h3 id="33">3.3 背景系统实现</h3>
+<h4 id="331">3.3.1 背景切换</h4>
+<ol>
+<li>解析背景指令，支持多种格式（如<code>[bg = image.png]</code>、<code>[bg = image.png with fade(0.5,0,0.5)]</code>）</li>
+<li>构建背景队列，按顺序处理背景切换</li>
+<li>支持淡入淡出等过渡效果</li>
+</ol>
+<h4 id="332">3.3.2 过渡效果</h4>
+<ol>
+<li>支持自定义淡出时长、黑屏停留时长、淡入时长和过渡颜色</li>
+<li>使用Tween实现平滑的过渡动画</li>
+<li>在过渡过程中临时隐藏对话UI，完成后恢复显示</li>
+</ol>
+<h3 id="34">3.4 音频系统实现</h3>
+<ol>
+<li>支持BGM和SFX两种音频类型</li>
+<li>使用AudioStreamPlayer播放音频</li>
+<li>通过配置指令控制音频播放（如<code>[bgm=music.ogg]</code>、<code>[sfx=sound.wav]</code>）</li>
+</ol>
+<h3 id="35">3.5 好感度系统实现（待开发）</h3>
+<h4 id="351">3.5.1 设计方案</h4>
+<ol>
+<li>在Player类中添加好感度相关属性</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">var</span><span class="w"> </span><span class="n">affinity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;角色1&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;角色2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="o">//</span><span class="w"> </span><span class="err">更多角色</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ol start="2">
+<li>在选项处理中添加好感度变更逻辑</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">func</span><span class="w"> </span><span class="n">on_option_selected</span><span class="p">(</span><span class="n">option</span><span class="p">):</span>
+<span class="w">  </span><span class="c1"># 现有处理逻辑...</span>
+
+<span class="w">  </span><span class="c1"># 好感度变更处理</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="s2">&quot;affinity_change&quot;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">option</span><span class="p">:</span>
+<span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="n">changes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">option</span><span class="o">.</span><span class="n">affinity_change</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">character</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">changes</span><span class="p">:</span>
+<span class="w">      </span><span class="n">Player</span><span class="o">.</span><span class="n">affinity</span><span class="p">[</span><span class="n">character</span><span class="p">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">changes</span><span class="p">[</span><span class="n">character</span><span class="p">]</span>
+</code></pre></div>
+
+<ol start="3">
+<li>在对话文件中添加好感度变更标记</li>
+</ol>
+<div class="highlight"><pre><span></span><code>- 友好回应 [affinity=角色1:+5]
+  角色1: &quot;谢谢你的理解。&quot;
+- 冷漠回应 [affinity=角色1:-3]
+  角色1: &quot;随你怎么想吧。&quot;
+</code></pre></div>
+
+<h3 id="36">3.6 章节选择实现（待开发）</h3>
+<h4 id="361">3.6.1 设计方案</h4>
+<ol>
+<li>创建章节数据结构</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">var</span><span class="w"> </span><span class="n">chapters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;chapter1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;第一章：开始&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;scene_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;res://Assets/atory/c1s1.txt&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;unlocked&quot;</span><span class="p">:</span><span class="w"> </span><span class="bp">true</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;completed&quot;</span><span class="p">:</span><span class="w"> </span><span class="bp">false</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="o">//</span><span class="w"> </span><span class="err">更多章节</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<ol start="2">
+<li>实现章节选择界面</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">func</span><span class="w"> </span><span class="n">load_chapter_selection</span><span class="p">():</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">chapter</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">chapters</span><span class="p">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">chapter</span><span class="o">.</span><span class="n">unlocked</span><span class="p">:</span>
+<span class="w">      </span><span class="k">var</span><span class="w"> </span><span class="n">btn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ChapterButton</span><span class="o">.</span><span class="n">instantiate</span><span class="p">()</span>
+<span class="w">      </span><span class="n">btn</span><span class="o">.</span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chapter</span><span class="o">.</span><span class="n">title</span>
+<span class="w">      </span><span class="n">btn</span><span class="o">.</span><span class="n">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">chapter</span><span class="o">.</span><span class="n">unlocked</span>
+<span class="w">      </span><span class="n">btn</span><span class="o">.</span><span class="n">pressed</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">func</span><span class="p">():</span><span class="w"> </span><span class="n">load_chapter</span><span class="p">(</span><span class="n">chapter</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+<span class="w">      </span><span class="n">chapter_container</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">btn</span><span class="p">)</span>
+</code></pre></div>
+
+<ol start="3">
+<li>章节完成后更新状态</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">func</span><span class="w"> </span><span class="n">complete_chapter</span><span class="p">(</span><span class="n">chapter_id</span><span class="p">):</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">chapter</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">chapters</span><span class="p">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">chapter</span><span class="o">.</span><span class="n">id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">chapter_id</span><span class="p">:</span>
+<span class="w">      </span><span class="n">chapter</span><span class="o">.</span><span class="n">completed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">true</span>
+<span class="w">      </span><span class="c1"># 解锁下一章节</span>
+<span class="w">      </span><span class="k">var</span><span class="w"> </span><span class="n">next_index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">chapters</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">chapter</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">next_index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">chapters</span><span class="o">.</span><span class="n">size</span><span class="p">():</span>
+<span class="w">        </span><span class="n">chapters</span><span class="p">[</span><span class="n">next_index</span><span class="p">]</span><span class="o">.</span><span class="n">unlocked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">true</span>
+</code></pre></div>
+
+<h3 id="37">3.7 记录查看实现（待开发）</h3>
+<h4 id="371">3.7.1 设计方案</h4>
+<ol>
+<li>创建记录数据结构</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">var</span><span class="w"> </span><span class="n">records</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;cg&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">    </span><span class="c1"># CG图片记录</span>
+<span class="w">  </span><span class="s2">&quot;music&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w"> </span><span class="c1"># 音乐记录</span>
+<span class="w">  </span><span class="s2">&quot;story&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">  </span><span class="c1"># 剧情记录</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ol start="2">
+<li>实现记录解锁逻辑</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">func</span><span class="w"> </span><span class="n">unlock_record</span><span class="p">(</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">records</span><span class="p">[</span><span class="n">type</span><span class="p">]:</span>
+<span class="w">    </span><span class="n">records</span><span class="p">[</span><span class="n">type</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+</code></pre></div>
+
+<ol start="3">
+<li>实现记录查看界面</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">func</span><span class="w"> </span><span class="n">load_record_view</span><span class="p">(</span><span class="n">type</span><span class="p">):</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="n">record_id</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">records</span><span class="p">[</span><span class="n">type</span><span class="p">]:</span>
+<span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RecordItem</span><span class="o">.</span><span class="n">instantiate</span><span class="p">()</span>
+<span class="w">    </span><span class="n">item</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">record_id</span><span class="p">)</span>
+<span class="w">    </span><span class="n">record_container</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="4">4. 存档系统（待开发）</h2>
+<h3 id="41">4.1 设计方案</h3>
+<ol>
+<li>创建存档数据结构</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">var</span><span class="w"> </span><span class="n">save_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="s2">&quot;player&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1"># 玩家数据</span>
+<span class="w">    </span><span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">    </span><span class="s2">&quot;skills&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="s2">&quot;progress&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1"># 游戏进度</span>
+<span class="w">    </span><span class="s2">&quot;current_scene&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;current_line&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;chapters&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">    </span><span class="s2">&quot;records&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="s2">&quot;relationships&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1"># 角色关系</span>
+<span class="w">    </span><span class="s2">&quot;affinity&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="s2">&quot;settings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="c1"># 游戏设置</span>
+<span class="w">    </span><span class="s2">&quot;text_speed&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;auto_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="bp">false</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;bgm_volume&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;sfx_volume&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="s2">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">  </span><span class="c1"># 存档时间戳</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<ol start="2">
+<li>实现存档保存功能</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">func</span><span class="w"> </span><span class="n">save_game</span><span class="p">(</span><span class="n">slot_id</span><span class="p">):</span>
+<span class="w">  </span><span class="c1"># 收集当前游戏状态</span>
+<span class="w">  </span><span class="n">save_data</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Player</span><span class="o">.</span><span class="n">player_name</span>
+<span class="w">  </span><span class="n">save_data</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">attributes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;lv&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">Player</span><span class="o">.</span><span class="n">player_lv</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;hp&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">Player</span><span class="o">.</span><span class="n">player_hp</span><span class="p">,</span>
+<span class="w">    </span><span class="c1"># 更多属性</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="n">save_data</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">current_scene</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dialogue_system</span><span class="o">.</span><span class="n">scene_id</span>
+<span class="w">  </span><span class="n">save_data</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">current_line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dialogue_system</span><span class="o">.</span><span class="n">current_line</span>
+<span class="w">  </span><span class="n">save_data</span><span class="o">.</span><span class="n">relationships</span><span class="o">.</span><span class="n">affinity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Player</span><span class="o">.</span><span class="n">affinity</span>
+<span class="w">  </span><span class="n">save_data</span><span class="o">.</span><span class="n">timestamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Time</span><span class="o">.</span><span class="n">get_unix_time_from_system</span><span class="p">()</span>
+
+<span class="w">  </span><span class="c1"># 保存到文件</span>
+<span class="w">  </span><span class="k">var</span><span class="w"> </span><span class="n">save_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;user://saves/save_</span><span class="si">%d</span><span class="s2">.json&quot;</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">slot_id</span>
+<span class="w">  </span><span class="k">var</span><span class="w"> </span><span class="n">dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DirAccess</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;user://saves&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">dir</span><span class="p">:</span>
+<span class="w">    </span><span class="n">DirAccess</span><span class="o">.</span><span class="n">make_dir_recursive_absolute</span><span class="p">(</span><span class="s2">&quot;user://saves&quot;</span><span class="p">)</span>
+
+<span class="w">  </span><span class="k">var</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FileAccess</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span><span class="w"> </span><span class="n">FileAccess</span><span class="o">.</span><span class="n">WRITE</span><span class="p">)</span>
+<span class="w">  </span><span class="n">file</span><span class="o">.</span><span class="n">store_string</span><span class="p">(</span><span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="n">save_data</span><span class="p">))</span>
+<span class="w">  </span><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+
+<ol start="3">
+<li>实现存档加载功能</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="k">func</span><span class="w"> </span><span class="n">load_game</span><span class="p">(</span><span class="n">slot_id</span><span class="p">):</span>
+<span class="w">  </span><span class="k">var</span><span class="w"> </span><span class="n">save_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;user://saves/save_</span><span class="si">%d</span><span class="s2">.json&quot;</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">slot_id</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">FileAccess</span><span class="o">.</span><span class="n">file_exists</span><span class="p">(</span><span class="n">save_path</span><span class="p">):</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="bp">false</span>
+
+<span class="w">  </span><span class="k">var</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FileAccess</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span><span class="w"> </span><span class="n">FileAccess</span><span class="o">.</span><span class="n">READ</span><span class="p">)</span>
+<span class="w">  </span><span class="k">var</span><span class="w"> </span><span class="n">json_string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">.</span><span class="n">get_as_text</span><span class="p">()</span>
+<span class="w">  </span><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="w">  </span><span class="k">var</span><span class="w"> </span><span class="n">json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON</span><span class="o">.</span><span class="n">parse_string</span><span class="p">(</span><span class="n">json_string</span><span class="p">)</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">json</span><span class="p">:</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="bp">false</span>
+
+<span class="w">  </span><span class="c1"># 恢复游戏状态</span>
+<span class="w">  </span><span class="n">Player</span><span class="o">.</span><span class="n">player_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">json</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">name</span>
+<span class="w">  </span><span class="n">Player</span><span class="o">.</span><span class="n">player_lv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">json</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">lv</span>
+<span class="w">  </span><span class="n">Player</span><span class="o">.</span><span class="n">player_hp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">json</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">hp</span>
+<span class="w">  </span><span class="c1"># 更多属性恢复</span>
+
+<span class="w">  </span><span class="n">Player</span><span class="o">.</span><span class="n">affinity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">json</span><span class="o">.</span><span class="n">relationships</span><span class="o">.</span><span class="n">affinity</span>
+
+<span class="w">  </span><span class="c1"># 加载场景并跳转到保存的行</span>
+<span class="w">  </span><span class="n">load_scene</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">current_scene</span><span class="p">)</span>
+<span class="w">  </span><span class="n">dialogue_system</span><span class="o">.</span><span class="n">current_line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">json</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">current_line</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="bp">true</span>
+</code></pre></div>
+
+<h2 id="5">5. 用户界面</h2>
+<h3 id="51">5.1 主界面</h3>
+<ul>
+<li>背景显示区域</li>
+<li>对话框（显示角色名和对话内容）</li>
+<li>选项按钮区域</li>
+<li>菜单按钮（设置、存档、加载、自动、跳过等）</li>
+</ul>
+<h3 id="52">5.2 菜单界面</h3>
+<ul>
+<li>设置按钮（打开设置界面）</li>
+<li>回忆录按钮（打开章节选择和记录查看界面）</li>
+<li>制作人员按钮（显示制作人员信息）</li>
+<li>退出按钮（退出游戏）</li>
+</ul>
+<h3 id="53">5.3 章节选择界面</h3>
+<ul>
+<li>已解锁章节列表</li>
+<li>章节缩略图和描述</li>
+<li>返回按钮</li>
+</ul>
+<h3 id="54">5.4 记录查看界面</h3>
+<ul>
+<li>分类标签（CG、音乐、剧情）</li>
+<li>记录项列表</li>
+<li>详情查看区域</li>
+<li>返回按钮</li>
+</ul>
+<h2 id="6">6. 资源管理</h2>
+<h3 id="61">6.1 文件结构</h3>
+<div class="highlight"><pre><span></span><code>/Assets
+  /fonts        # 字体文件
+  /images       # 背景和CG图片
+    /c1s1       # 第一章第一节的图片
+    /c1s2       # 第一章第二节的图片
+  /sounds
+    /bgm        # 背景音乐
+    /sfx        # 音效
+  /atory        # 对话文件
+    c1s1.txt    # 第一章第一节的对话
+    c1s2.txt    # 第一章第二节的对话
+/Scenes
+  /main         # 主游戏场景
+  /menu         # 菜单场景
+  /AnimatedButton # 动画按钮组件
+/Scripts
+  /utiles       # 工具脚本
+    DialogueSystem.gd  # 对话系统
+    Player.gd          # 玩家系统
+</code></pre></div>
+
+<h3 id="62">6.2 资源命名规范</h3>
+<ul>
+<li>背景图片：<code>场景ID_序号.扩展名</code>（如<code>c1s1_01.png</code>）</li>
+<li>音频文件：<code>类型_名称.扩展名</code>（如<code>bgm_main.ogg</code>、<code>sfx_click.wav</code>）</li>
+<li>对话文件：<code>章节ID.txt</code>（如<code>c1s1.txt</code>）</li>
+</ul>
+<h2 id="7">7. 开发计划</h2>
+<h3 id="71">7.1 第一阶段：核心系统</h3>
+<ul>
+<li><input type="checkbox" checked disabled>  对话系统实现</li>
+<li><input type="checkbox" checked disabled>  背景管理系统实现</li>
+<li><input type="checkbox" checked disabled>  音频系统实现</li>
+<li><input type="checkbox" checked disabled>  选项系统实现</li>
+</ul>
+<h3 id="72">7.2 第二阶段：扩展功能</h3>
+<ul>
+<li><input type="checkbox" disabled>  好感度系统实现</li>
+<li><input type="checkbox" disabled>  存档系统实现</li>
+<li><input type="checkbox" disabled>  章节选择功能实现</li>
+<li><input type="checkbox" disabled>  记录查看功能实现</li>
+</ul>
+<h3 id="73">7.3 第三阶段：优化和完善</h3>
+<ul>
+<li><input type="checkbox" disabled>  UI美化和动画效果</li>
+<li><input type="checkbox" disabled>  性能优化</li>
+<li><input type="checkbox" disabled>  多语言支持</li>
+<li><input type="checkbox" disabled>  辅助功能（自动模式、跳过已读、文本速度调整等）</li>
+</ul>
+<h2 id="8">8. 注意事项和建议</h2>
+<h3 id="81">8.1 性能优化</h3>
+<ul>
+<li>使用资源预加载减少加载时间</li>
+<li>优化图片大小和格式，减少内存占用</li>
+<li>使用对象池管理频繁创建和销毁的对象（如选项按钮）</li>
+</ul>
+<h3 id="82">8.2 扩展性考虑</h3>
+<ul>
+<li>使用配置文件管理游戏参数，便于调整和扩展</li>
+<li>设计模块化的系统架构，便于添加新功能</li>
+<li>使用信号机制实现系统间的松耦合通信</li>
+</ul>
+<h3 id="83">8.3 用户体验</h3>
+<ul>
+<li>提供丰富的设置选项（文本速度、音量、自动模式等）</li>
+<li>实现存档/读档功能，便于玩家随时保存和恢复游戏进度</li>
+<li>添加辅助功能（如文本历史记录、跳过已读文本等）</li>
+</ul>
+<h2 id="9">9. 结语</h2>
+<p>本文档提供了视觉小说游戏开发的整体框架和实现方案，涵盖了核心系统、功能实现、用户界面和资源管理等方面。开发团队可以根据实际需求和资源情况，调整和扩展本方案，实现一款功能完善、体验良好的视觉小说游戏。</p>
+<p>随着项目的推进，本文档将不断更新和完善，以反映最新的开发进展和设计变更。</p></div><div class="post__license"><strong><strong>本文作者：</strong>Mansifield </strong><strong><p>版权声明：本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> 协议授权</p></strong><strong><strong>转载需注明作者及原文链接： </strong><a href="https://glyphite.github.io/JTKUHR/">https://glyphite.github.io/JTKUHR/</a></strong></div><div class="post-footer__meta"><p></p></div><div class="post-tags"><a href="/tags/AVG/" class="post-tags__link button"># AVG</a></div></article><aside class="post-sidebar"><ul class="toc-list">
+<li><a href="#1">1. 项目概述</a></li>
+<li class="toc-sub"><a href="#11">1.1 项目简介</a></li>
+<li class="toc-sub"><a href="#12">1.2 核心功能</a></li>
+<li><a href="#2">2. 主要架构</a></li>
+<li class="toc-sub"><a href="#21-dialoguesystem">2.1 对话系统 (DialogueSystem)</a></li>
+<li class="toc-sub"><a href="#22-main">2.2 主控制器 (Main)</a></li>
+<li class="toc-sub"><a href="#23-player">2.3 玩家系统 (Player)</a></li>
+<li class="toc-sub"><a href="#24-menu">2.4 菜单系统 (Menu)</a></li>
+<li><a href="#3">3. 功能实现</a></li>
+<li class="toc-sub"><a href="#31">3.1 对话系统实现</a></li>
+<li class="toc-sub"><a href="#32">3.2 选项系统实现</a></li>
+<li class="toc-sub"><a href="#33">3.3 背景系统实现</a></li>
+<li class="toc-sub"><a href="#34">3.4 音频系统实现</a></li>
+<li class="toc-sub"><a href="#35">3.5 好感度系统实现（待开发）</a></li>
+<li class="toc-sub"><a href="#36">3.6 章节选择实现（待开发）</a></li>
+<li class="toc-sub"><a href="#37">3.7 记录查看实现（待开发）</a></li>
+<li><a href="#4">4. 存档系统（待开发）</a></li>
+<li class="toc-sub"><a href="#41">4.1 设计方案</a></li>
+<li><a href="#5">5. 用户界面</a></li>
+<li class="toc-sub"><a href="#51">5.1 主界面</a></li>
+<li class="toc-sub"><a href="#52">5.2 菜单界面</a></li>
+<li class="toc-sub"><a href="#53">5.3 章节选择界面</a></li>
+<li class="toc-sub"><a href="#54">5.4 记录查看界面</a></li>
+<li><a href="#6">6. 资源管理</a></li>
+<li class="toc-sub"><a href="#61">6.1 文件结构</a></li>
+<li class="toc-sub"><a href="#62">6.2 资源命名规范</a></li>
+<li><a href="#7">7. 开发计划</a></li>
+<li class="toc-sub"><a href="#71">7.1 第一阶段：核心系统</a></li>
+<li class="toc-sub"><a href="#72">7.2 第二阶段：扩展功能</a></li>
+<li class="toc-sub"><a href="#73">7.3 第三阶段：优化和完善</a></li>
+<li><a href="#8">8. 注意事项和建议</a></li>
+<li class="toc-sub"><a href="#81">8.1 性能优化</a></li>
+<li class="toc-sub"><a href="#82">8.2 扩展性考虑</a></li>
+<li class="toc-sub"><a href="#83">8.3 用户体验</a></li>
+<li><a href="#9">9. 结语</a></li>
+</ul></aside></div><a class="btn-toc button" id="btn-toc" tabindex="0"><svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg"><path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path></svg></a><div class="toc-menus" id="toc-menus"><ul class="toc-list">
+<li><a href="#1">1. 项目概述</a></li>
+<li class="toc-sub"><a href="#11">1.1 项目简介</a></li>
+<li class="toc-sub"><a href="#12">1.2 核心功能</a></li>
+<li><a href="#2">2. 主要架构</a></li>
+<li class="toc-sub"><a href="#21-dialoguesystem">2.1 对话系统 (DialogueSystem)</a></li>
+<li class="toc-sub"><a href="#22-main">2.2 主控制器 (Main)</a></li>
+<li class="toc-sub"><a href="#23-player">2.3 玩家系统 (Player)</a></li>
+<li class="toc-sub"><a href="#24-menu">2.4 菜单系统 (Menu)</a></li>
+<li><a href="#3">3. 功能实现</a></li>
+<li class="toc-sub"><a href="#31">3.1 对话系统实现</a></li>
+<li class="toc-sub"><a href="#32">3.2 选项系统实现</a></li>
+<li class="toc-sub"><a href="#33">3.3 背景系统实现</a></li>
+<li class="toc-sub"><a href="#34">3.4 音频系统实现</a></li>
+<li class="toc-sub"><a href="#35">3.5 好感度系统实现（待开发）</a></li>
+<li class="toc-sub"><a href="#36">3.6 章节选择实现（待开发）</a></li>
+<li class="toc-sub"><a href="#37">3.7 记录查看实现（待开发）</a></li>
+<li><a href="#4">4. 存档系统（待开发）</a></li>
+<li class="toc-sub"><a href="#41">4.1 设计方案</a></li>
+<li><a href="#5">5. 用户界面</a></li>
+<li class="toc-sub"><a href="#51">5.1 主界面</a></li>
+<li class="toc-sub"><a href="#52">5.2 菜单界面</a></li>
+<li class="toc-sub"><a href="#53">5.3 章节选择界面</a></li>
+<li class="toc-sub"><a href="#54">5.4 记录查看界面</a></li>
+<li><a href="#6">6. 资源管理</a></li>
+<li class="toc-sub"><a href="#61">6.1 文件结构</a></li>
+<li class="toc-sub"><a href="#62">6.2 资源命名规范</a></li>
+<li><a href="#7">7. 开发计划</a></li>
+<li class="toc-sub"><a href="#71">7.1 第一阶段：核心系统</a></li>
+<li class="toc-sub"><a href="#72">7.2 第二阶段：扩展功能</a></li>
+<li class="toc-sub"><a href="#73">7.3 第三阶段：优化和完善</a></li>
+<li><a href="#8">8. 注意事项和建议</a></li>
+<li class="toc-sub"><a href="#81">8.1 性能优化</a></li>
+<li class="toc-sub"><a href="#82">8.2 扩展性考虑</a></li>
+<li class="toc-sub"><a href="#83">8.3 用户体验</a></li>
+<li><a href="#9">9. 结语</a></li>
+</ul></div><div class="nav"><div class="nav__prev"><a href="/FARSDE/" class="nav__link"><div><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M589.088 790.624L310.464 512l278.624-278.624 45.248 45.248L400.96 512l233.376 233.376z" fill="#808080"></path></svg></div><div><div class="nav__label">上一篇</div><div class="nav__title">使用字符串调用函数</div></div></a></div><div class="nav__next"><a href="/OCFRRL/" class="nav__link"><div><div class="nav__label">下一篇</div><div class="nav__title">克苏鲁的呼唤（COC）新人简要指南</div></div><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M434.944 790.624l-45.248-45.248L623.04 512l-233.376-233.376 45.248-45.248L713.568 512z" fill="#808080"></path></svg></div></a></div></div></div></main><footer class="footer"><p class="footer-copyright">Copyright © 2021&nbsp;-&nbsp;2026 <a href="/">晝行燈</a></p><p>Powered by Python &nbsp;|&nbsp; Theme - Cards</p></footer></div><script src="https://cdn.jsdelivr.net/npm/mermaid@11.8.0/dist/mermaid.min.js"></script><script>if (window.mermaid) { mermaid.initialize({ startOnLoad: true, theme: 'default' }); }</script><style>.mermaid{display:block;margin:0 auto;text-align:center}.mermaid svg{max-width:100%;overflow:visible}@media screen and (max-width:768px){.mermaid{transform:scale(.9);transform-origin:center}}</style></body></html>

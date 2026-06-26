@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><title>主界面设计(下) | 晝行燈</title><meta name="keywords" content="游戏开发"><meta name="description" content="近期成果的大致介绍。"><meta property="og:type" content="article"><meta property="og:title" content="主界面设计(下)"><meta property="og:url" content="https://glyphite.github.io/SFDYTY/"><meta property="og:site_name" content="晝行燈"><meta property="og:description" content="近期成果的大致介绍。"><meta property="og:locale" content="zh_CN"><meta property="article:author" content="Mansifield"><meta property="article:tag" content="游戏开发"><meta name="twitter:card" content="summary_large_image"><link rel="stylesheet" href="/css/style/main.css"><link rel="stylesheet" id="hl-default-theme" href="/css/highlight/pygments.css" media="all"><link rel="stylesheet" id="hl-dark-theme" href="/css/highlight/pygments.dark.css" media="none"><link rel="stylesheet" href="/css/style/dark.css"><script src="/js/darkmode.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><div id="app" tabindex="-1"><header class="header"><div class="header__left"><a href="/" class="button"><span class="logo__text">主页</span></a></div><div class="header__right"><div class="navbar__menus"><a href="/tags/" class="navbar-menu button">标签</a> <a href="/archives/" class="navbar-menu button">归档</a> <a href="/about/" class="navbar-menu button">关于</a></div><a href="/search/" id="btn-search"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg> </a><a href="javaScript:void(0);" id="btn-toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg> </a><a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="24" height="24" fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a><div class="dropdown-menus" id="dropdown-menus"><a href="/tags/" class="dropdown-menu button">标签</a> <a href="/archives/" class="dropdown-menu button">归档</a> <a href="/about/" class="dropdown-menu button">关于</a></div></div></header><div class="cover"><div class="cover__logo"><img no-lazy alt="author Image" class="cover__avatar" src="/logo.svg"></div><div class="cover__intro"><p>白日昏灯，且照人间路</p></div></div><main class="main"><div class="post-wrapper"><div class="post-title"><h1 class="post-title__text">主界面设计(下)</h1><div class="post-title__meta"><a href="/archives/2024/08/" class="post-meta__date button">甲辰年 08月27日</a></div></div><div class="post-container"><article class="post post__with-toc content-card"><div class="post__header"></div><div class="post__content"><h2 id="_1">近期成果</h2>
+<p>厂里有些忙，不过我在空闲时间也在尽力赶进度了，近期内写的任务安排基本全部完成。</p>
+<ul>
+<li><input type="checkbox" checked disabled>  写个解析CSV的脚本</li>
+<li><input type="checkbox" checked disabled>  找个一键EXCEL转化为CSV的工具</li>
+<li><input type="checkbox" checked disabled>  完成初步的EXCEL总表</li>
+<li><input type="checkbox" checked disabled>  完成初步的语言国际化</li>
+<li><input type="checkbox" checked disabled>  游戏状态栏改成手机的一行形式</li>
+<li><input type="checkbox" checked disabled>  参考大项目的分类方式整理文件</li>
+</ul>
+<p>接下来大致给大家简单介绍一下近期成果。</p>
+<h2 id="csv">CSV解析器</h2>
+<p>首先是CSV解析脚本……我参考了视频<a href="https://www.bilibili.com/video/BV1zS411F7dr/?spm_id_from=333.788&amp;vd_source=64f51e3816d875954241b449d6803c14">Godot用表格的方式制作物品信息 - bilibili</a></p>
+<p>不过视频中把类型和类名混在一起了，不太方便，也不直观，我改成了读取第二行作为数据类型的判断依据。并且我做的是文字游戏，用的图不多……目前暂时把图片解析的部分注释掉了，还有就是加上了一些必要的判断和操作，以免出错。</p>
+<p>最后代码如下：</p>
+<div class="highlight"><pre><span></span><code><span class="k">extends</span><span class="w"> </span><span class="nb nb-Type">Object</span>
+
+<span class="k">func</span><span class="w"> </span><span class="n">load_csv</span><span class="p">(</span><span class="n">csv_path</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">String</span><span class="p">):</span>
+<span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="n">file</span><span class="p">:</span><span class="w"> </span><span class="n">FileAccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FileAccess</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">csv_path</span><span class="p">,</span><span class="w"> </span><span class="n">FileAccess</span><span class="o">.</span><span class="n">READ</span><span class="p">)</span>
+<span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="n">header</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">PackedStringArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">.</span><span class="n">get_csv_line</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="n">types</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">PackedStringArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">.</span><span class="n">get_csv_line</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="n">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">file</span><span class="p">:</span>
+<span class="w">        </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> 文件打开失败&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">csv_path</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">file</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">file</span><span class="o">.</span><span class="n">get_length</span><span class="p">():</span>
+<span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="n">csv_item</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">PackedStringArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">.</span><span class="n">get_csv_line</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">var</span><span class="w"> </span><span class="n">row</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Dictionary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">header</span><span class="o">.</span><span class="n">size</span><span class="p">()):</span>
+<span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">header</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">csv_item</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="w">            </span><span class="k">var</span><span class="w"> </span><span class="n">type_str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">types</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+<span class="w">            </span><span class="c1"># 根据第二行的字符串转化为相应类型</span>
+<span class="w">            </span><span class="k">match</span><span class="w"> </span><span class="n">type_str</span><span class="p">:</span>
+<span class="w">                </span><span class="s2">&quot;str&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">row</span><span class="p">[</span><span class="n">title</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span>
+<span class="w">                </span><span class="s2">&quot;int&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">row</span><span class="p">[</span><span class="n">title</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="o">.</span><span class="n">to_int</span><span class="p">()</span>
+<span class="w">                </span><span class="s2">&quot;flo&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">row</span><span class="p">[</span><span class="n">title</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="o">.</span><span class="n">to_float</span><span class="p">()</span>
+<span class="w">                </span><span class="n">_</span><span class="p">:</span><span class="w"> </span><span class="n">row</span><span class="p">[</span><span class="n">title</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span>
+<span class="w">        </span><span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span><span class="w">  </span><span class="c1"># 读取完成后关闭文件</span>
+
+<span class="w">    </span><span class="c1">#for i in range(items.size()):</span>
+<span class="w">        </span><span class="c1">## 获取字典icon_x的值，负责定位纹理切图x轴位置</span>
+<span class="w">        </span><span class="c1">#var x = items[i][&quot;icon_x&quot;]</span>
+<span class="w">        </span><span class="c1">## 获取字典icon_y的值，负责定位纹理切图y轴位置</span>
+<span class="w">        </span><span class="c1">#var y = items[i][&quot;icon_y&quot;]</span>
+<span class="w">        </span><span class="c1">## 创建切图纹理</span>
+<span class="w">        </span><span class="c1">#var tex = AtlasTexture.new()</span>
+<span class="w">        </span><span class="c1">## 将预加载的纹理赋值到新创建的切图纹理上</span>
+<span class="w">        </span><span class="c1">#tex.atlas = CSV_ITEM_ICON</span>
+<span class="w">        </span><span class="c1">## 设置切图大小</span>
+<span class="w">        </span><span class="c1">#tex.region.size = Vector2(16, 16)</span>
+<span class="w">        </span><span class="c1">## 设置切图定位</span>
+<span class="w">        </span><span class="c1">#tex.region.position = Vector2(x * 16, y * 16)</span>
+<span class="w">        </span><span class="c1">## 赋值到节点纹理上</span>
+<span class="w">        </span><span class="c1">#get_child(i).texture = tex</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">items</span>
+</code></pre></div>
+
+<h2 id="excel">EXCEL转化器</h2>
+<p>我没构建Python环境，所以用不了更方便的脚本，只好找了个软件来实现类似功能：<a href="https://www.52pojie.cn/thread-1414628-1-1.html">Excel格式转换器 - 吾爱</a></p>
+<p>不过也没差，反正效果一样的，软件很好用，我可以直接在一个总表里方便的管理我的所有可以使用CSV储存的游戏数据，直观方便，还能利用EXCEL强大的汇总、查询、整理功能。</p>
+<p>就比如下图，转化后会生成language、talent等CSV文件，真的很方便。在这里也感谢一下吾爱老哥的无私分享。</p>
+<p><img alt="" src="/SFDYTY/8271.PNG" /></p>
+<center><div style="color: #888; font-size: 0.9em;">图1. 数据总表</div></center>
+
+<h2 id="_2">语言国际化</h2>
+<p>实装了切换语言的功能。</p>
+<p>不过，为了界面显示的简洁，我没做可供玩家选择语言的二级界面，而是采用了点一下切换一次的设计。</p>
+<p><img alt="" src="/SFDYTY/8272.gif" /></p>
+<h2 id="_3">角色状态栏</h2>
+<p>之前用的是占据空间比较多的方式，后面手机用着用着发现……好像手机状态栏的样式就挺不错，然后就改成了现在这种。</p>
+<p>采用一栏式布局，时间等信息和手机布局一致，电量的位置则替换为生命。</p>
+<p>至于设置选项则从界面里删掉了，改为了游戏机制。玩家需要回到家园并使用特殊道具才可调整，例如：使用<code>世界之声</code>道具，可以调整游戏音量。</p>
+<p><img alt="" src="/SFDYTY/8273.PNG" /></p>
+<center>↓</center>
+
+<p><img alt="" src="/SFDYTY/8274.PNG" /></p>
+<h2 id="_4">文件夹整理</h2>
+<p>目前我大致遵循以下两个原则：</p>
+<ul>
+<li>
+<p>res目录（也就是初始目录）的文件夹尽可能的少，这样比较美观。</p>
+<blockquote>
+<p>我大致分成了：Assets、Entity、Procedure三大类，分别对应游戏资产、玩家可互动的实体、程序。然后在这三大类我又会划分为很多个具体的小类，例如Procedure下有个scene（界面），然后界面里有个menu（主菜单）文件夹，里面就存放着一些和这个界面相关的文件，具体有啥详见下一个原则。</p>
+</blockquote>
+</li>
+<li>
+<p>文件分类按照<strong>模块化</strong>的思路进行储存。</p>
+<blockquote>
+<p>原本我是按类型来存放资源的，也就是脚本放一个文件夹、主题放一个文件夹、界面又放另一个文件夹……这样倒是整齐了，但是找东西的时候很不方便，经常要点开好几个文件夹去找对应的脚本和界面。而现在我按照模块化思路直接放一起，用上面那个menu文件夹举例，这里面有menu菜单的界面、脚本、主题等各个和menu相关的东西。</p>
+</blockquote>
+</li>
+</ul></div><div class="post__license"><strong><strong>本文作者：</strong>Mansifield </strong><strong><p>版权声明：本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> 协议授权</p></strong><strong><strong>转载需注明作者及原文链接： </strong><a href="https://glyphite.github.io/SFDYTY/">https://glyphite.github.io/SFDYTY/</a></strong></div><div class="post-footer__meta"><p></p></div><div class="post-tags"><a href="/tags/AVG/" class="post-tags__link button"># AVG</a></div></article><aside class="post-sidebar"><ul class="toc-list">
+<li><a href="#_1">近期成果</a></li>
+<li><a href="#csv">CSV解析器</a></li>
+<li><a href="#excel">EXCEL转化器</a></li>
+<li><a href="#_2">语言国际化</a></li>
+<li><a href="#_3">角色状态栏</a></li>
+<li><a href="#_4">文件夹整理</a></li>
+</ul></aside></div><a class="btn-toc button" id="btn-toc" tabindex="0"><svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg"><path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path></svg></a><div class="toc-menus" id="toc-menus"><ul class="toc-list">
+<li><a href="#_1">近期成果</a></li>
+<li><a href="#csv">CSV解析器</a></li>
+<li><a href="#excel">EXCEL转化器</a></li>
+<li><a href="#_2">语言国际化</a></li>
+<li><a href="#_3">角色状态栏</a></li>
+<li><a href="#_4">文件夹整理</a></li>
+</ul></div><div class="nav"><div class="nav__prev"><a href="/YDVIEQ/" class="nav__link"><div><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M589.088 790.624L310.464 512l278.624-278.624 45.248 45.248L400.96 512l233.376 233.376z" fill="#808080"></path></svg></div><div><div class="nav__label">上一篇</div><div class="nav__title">CSVTool</div></div></a></div><div class="nav__next"><a href="/PFOXTU/" class="nav__link"><div><div class="nav__label">下一篇</div><div class="nav__title">主界面设计(上)</div></div><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M434.944 790.624l-45.248-45.248L623.04 512l-233.376-233.376 45.248-45.248L713.568 512z" fill="#808080"></path></svg></div></a></div></div></div></main><footer class="footer"><p class="footer-copyright">Copyright © 2021&nbsp;-&nbsp;2026 <a href="/">晝行燈</a></p><p>Powered by Python &nbsp;|&nbsp; Theme - Cards</p></footer></div><script src="https://cdn.jsdelivr.net/npm/mermaid@11.8.0/dist/mermaid.min.js"></script><script>if (window.mermaid) { mermaid.initialize({ startOnLoad: true, theme: 'default' }); }</script><style>.mermaid{display:block;margin:0 auto;text-align:center}.mermaid svg{max-width:100%;overflow:visible}@media screen and (max-width:768px){.mermaid{transform:scale(.9);transform-origin:center}}</style></body></html>

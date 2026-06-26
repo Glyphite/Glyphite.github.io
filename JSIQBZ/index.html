@@ -1,0 +1,237 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><title>Mermaid图形的用法 | 晝行燈</title><meta name="keywords" content="游戏开发"><meta name="description" content="博客"><meta property="og:type" content="article"><meta property="og:title" content="Mermaid图形的用法"><meta property="og:url" content="https://glyphite.github.io/JSIQBZ/"><meta property="og:site_name" content="晝行燈"><meta property="og:description" content="博客"><meta property="og:locale" content="zh_CN"><meta property="article:author" content="Mansifield"><meta property="article:tag" content="游戏开发"><meta name="twitter:card" content="summary_large_image"><link rel="stylesheet" href="/css/style/main.css"><link rel="stylesheet" id="hl-default-theme" href="/css/highlight/pygments.css" media="all"><link rel="stylesheet" id="hl-dark-theme" href="/css/highlight/pygments.dark.css" media="none"><link rel="stylesheet" href="/css/style/dark.css"><script src="/js/darkmode.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><div id="app" tabindex="-1"><header class="header"><div class="header__left"><a href="/" class="button"><span class="logo__text">主页</span></a></div><div class="header__right"><div class="navbar__menus"><a href="/tags/" class="navbar-menu button">标签</a> <a href="/archives/" class="navbar-menu button">归档</a> <a href="/about/" class="navbar-menu button">关于</a></div><a href="/search/" id="btn-search"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg> </a><a href="javaScript:void(0);" id="btn-toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg> </a><a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="24" height="24" fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a><div class="dropdown-menus" id="dropdown-menus"><a href="/tags/" class="dropdown-menu button">标签</a> <a href="/archives/" class="dropdown-menu button">归档</a> <a href="/about/" class="dropdown-menu button">关于</a></div></div></header><div class="cover"><div class="cover__logo"><img no-lazy alt="author Image" class="cover__avatar" src="/logo.svg"></div><div class="cover__intro"><p>白日昏灯，且照人间路</p></div></div><main class="main"><div class="post-wrapper"><div class="post-title"><h1 class="post-title__text">Mermaid图形的用法</h1><div class="post-title__meta"><a href="/archives/2025/01/" class="post-meta__date button">乙巳年 01月05日</a></div></div><div class="post-container"><article class="post post__with-toc content-card"><div class="post__header"></div><div class="post__content"><h2 id="_1">参数配置</h2>
+<p>在配置文件 config 中找到 mermaid 配置，并设置为 true，theme 可以设置浅色和深色背景的样式，共有4个可用选项。如果找不着就自己在 config 中添加。</p>
+<div class="highlight"><pre><span></span><code>mermaid:
+  enable: true
+  theme: default  # default | dark | forest | neutral
+  options:
+    displayMode: true
+    startOnLoad: true
+</code></pre></div>
+
+<h2 id="_2">流程图</h2>
+<p>下为Mermaid图形工具插件的一些流程图的具体用法示例，参考了官方指导教程<a href="https://mermaid.js.org/syntax/flowchart.html">Mermaid Flowchart</a>以及其他人的<a href="https://blog.hanqunfeng.com/2025/01/02/mermaid/#图形示例">博客</a>，后面的其他几种类型的图表同理：</p>
+<div class="mermaid">flowchart TD
+    classDef oval stroke:#333,fill:#E6E6FA;
+    classDef rect stroke:#333,fill:#ADD8E6;
+    classDef diamond stroke:#333,fill:#90EE90;
+    classDef parallelogram stroke:#333,fill:#F0E68C;
+    classDef stadium stroke:#333,fill:#D2B48C;
+    classDef predef stroke:#333,fill:#D8BFD8;
+    classDef cylinder stroke:#333,fill:#FFFACD;
+    classDef asym stroke:#333,fill:#FFDAB9;
+    classDef circle stroke:#333,fill:#FFFFFF;
+    classDef delay stroke:#333,fill:#D3D3D3;
+    classDef document stroke:#333,fill:#FAFAD2;
+    classDef note stroke-dasharray:3,stroke:gray,fill:#FFFFE0;
+
+    A(("开始")):::oval -->|启动程序| B["初始化系统"]:::rect
+    B --> C{用户登录?}:::diamond
+    C -->|是| D["输入用户名/密码"]:::parallelogram
+    C -->|否| H>"发送邮件通知"]:::asym
+    D --> E([手动验证身份]):::stadium
+    E -->|通过| F[[用户认证模块]]:::predef
+    F --> G[(用户数据库)]:::cylinder
+    G --> I((conn1)):::circle
+    I -->|连接点1| J>"API响应延迟"]:::delay
+    J --> K[[支付处理子流程]]:::predef
+    K --> L["生成报告"]:::parallelogram
+    L --> M[/"审计日志.pdf"/]:::document
+    M --> N{"金额 > 5000?"}:::diamond
+    N -->|是| O([主管签名]):::stadium
+    O --> R(("结束")):::oval
+    N -->|否| R
+    F -.->|错误日志| P>"注意：需3日内归档"]:::note
+    P --> R
+
+    linkStyle 14 stroke:gray,stroke-dasharray:3,color:gray</div>
+
+<div class="highlight"><pre><span></span><code>%% ============== 样式定义 ==============
+%% 使用 classDef 定义可复用的节点样式，语法：classDef 样式名称 stroke:&lt;边框颜色&gt;,fill:&lt;填充颜色&gt;,&lt;其他样式&gt;
+classDef oval stroke:#333,fill:#E6E6FA;        %% 椭圆样式（开始/结束节点）
+classDef rect stroke:#333,fill:#ADD8E6;        %% 矩形样式（常规处理步骤）
+......（后续省略）
+
+%% ============== 节点定义 ==============
+%% 节点语法：唯一标识符((&quot;显示内容&quot;)):::样式类
+A((&quot;开始&quot;)):::oval          %% A节点标识符，双括号表示圆形/椭圆，用于开始/结束节点
+B[&quot;初始化系统&quot;]:::rect      %% B节点标识符，方括号表示矩形（常规处理步骤）
+......（后续省略）
+
+%% ============== 连接线定义 ==============
+%% 连接线基本语法：节点A --&gt;|连线文字| 节点B
+A --&gt;|启动程序| B          %% 带文字说明的实线箭头
+B --&gt; C                   %% 无文字实线箭头
+C --&gt;|是| D               %% 带条件判断的实线箭头
+C --&gt;|否| H               %% 另一个条件分支
+D --&gt; E
+E --&gt;|通过| F             %% 带处理结果的箭头
+F --&gt; G
+G --&gt; I
+I --&gt;|连接点1| J          %% 连接点说明
+J --&gt; K
+K --&gt; L
+L --&gt; M
+M --&gt; N
+N --&gt;|是| O              %% 金额判断分支
+N --&gt;|否| R              %% 直接结束分支
+O --&gt; R
+
+%% 特殊连接线
+F -.-&gt;|错误日志| P        %% -.-&gt; 表示虚线箭头（特殊流程）
+P --&gt; R                  %% 注释指向结束
+
+%% ============== 线样式定义 ==============
+%% linkStyle 语法：linkStyle 序号 stroke:&lt;颜色&gt;,stroke-dasharray:&lt;虚线样式&gt;
+linkStyle 14 stroke:gray,stroke-dasharray:3,color:gray %% 设置索引为14的连接线样式（F到P）
+</code></pre></div>
+
+<ol>
+<li>流程图方向：<code>TB/TD ↓</code>、<code>BT ↑</code>、<code>RL ←</code>、<code>LR →</code></li>
+<li>连接线定义：<code>A[Hard] --&gt;|Text| B(Round)</code> 节点A通过带文本&rdquo;Text&rdquo;的箭头指向节点B</li>
+<li>图形介绍：<blockquote>
+<p>[ ]：矩形节点，表示常规处理步骤<br />
+{ }：菱形节点，用于条件判断且必须有两个以上出口<br />
+[ ]：平行四边形，作为输入输出接口（用户交互或数据输出）<br />
+(( ))：椭圆形开始/结束节点，标记流程起点或终点<br />
+([ ])：圆角矩形，人工操作环节需要人员介入<br />
+[[ ]]：双中括号子流程节点，表示预设的独立功能模块<br />
+[( )]：圆柱体节点，代表数据库存储</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="_3">时序图</h2>
+<div class="mermaid">sequenceDiagram
+    爱丽丝->>鲍勃: 嗨，鲍勃，你最近还好吗？
+    鲍勃->>爱丽丝: 我很好，谢谢。你呢？
+    create participant 卡尔
+    爱丽丝->>卡尔: 嗨，卡尔！
+    create actor D as 唐纳德
+    卡尔->>D: 嗨！
+    destroy 卡尔
+    爱丽丝-x卡尔: 我们数量太多了！
+    destroy 鲍勃
+    鲍勃->>爱丽丝: 我同意。</div>
+
+<div class="highlight"><pre><span></span><code>sequenceDiagram
+    爱丽丝-&gt;&gt;鲍勃: 嗨，鲍勃，你最近还好吗？
+    鲍勃-&gt;&gt;爱丽丝: 我很好，谢谢。你呢？
+    create participant 卡尔
+    爱丽丝-&gt;&gt;卡尔: 嗨，卡尔！
+    create actor D as 唐纳德
+    卡尔-&gt;&gt;D: 嗨！
+    destroy 卡尔
+    爱丽丝-x卡尔: 我们数量太多了！
+    destroy 鲍勃
+    鲍勃-&gt;&gt;爱丽丝: 我同意。
+</code></pre></div>
+
+<h2 id="_4">甘特图</h2>
+<p>甘特图是一种条形图，由 Karol Adamiecki 于 1896 年首次开发，并由 Henry Gantt 在 1910 年代完善，它说明了项目时间表以及完成任何一个项目所需的时间，常用于项目规划。</p>
+<div class="mermaid">---
+displayMode: compact
+---
+gantt
+    title 《赤红之夜》开发计划 (v1.0)
+    dateFormat  YYYY-MM-DD
+    axisFormat   %m-%d
+    todayMarker stroke-dasharray:5,5,stroke:#000,stroke-width:2px
+
+    section 剧情
+    劫匪    : done, story1, 2025-07-10, 5d
+    落脚    : active, story2, after story1, 3d
+    亲朋    : story3, after story2, 3d
+    夜色    : story4, after story3, 3d
+    杀机    : story5, after story4, 3d
+    回溯    : story6, after story5, 3d
+
+    section 机制
+    战斗系统 : tech1, after story6, 10d
+    剧情回溯 : tech2, after tech1, 10d
+
+    section 测试
+    招人 : teste1, after tech2, 5d
+    测试 : teste2, after teste1, 10d
+
+    section 里程碑
+    剧本完成 : milestone, story_done, 2025-07-30, 0d
+    机制完成 : milestone, tech_start, 2025-08-19, 0d
+    初版完成 : milestone, release, 2025-09-03, 0d</div>
+
+<div class="highlight"><pre><span></span><code>---
+displayMode: compact  %% 紧凑布局
+---
+gantt
+    title 《赤红之夜》开发计划 (v1.0)
+    dateFormat  YYYY-MM-DD
+    axisFormat   %m-%d               %% X轴显示单位
+    todayMarker stroke-dasharray:5,5,stroke:#000,stroke-width:2px
+
+    section 剧情
+    劫匪    : done, story1, 2025-07-10, 5d           %% done 已完成
+    落脚    : active, story2, after story1, 3d   %% active 进行中
+    亲朋    : story3, after story2, 3d
+    夜色    : story4, after story3, 3d
+    杀机    : story5, after story4, 3d
+    回溯    : story6, after story5, 3d
+
+    section 机制
+    战斗系统 : tech1, after story6, 10d
+    剧情回溯 : tech2, after tech1, 10d
+
+    section 测试
+    招人 : teste1, after tech2, 5d
+    测试 : teste2, after teste1, 10d
+
+    section 里程碑
+    剧本完成 : milestone, story_done, 2025-07-30, 0d
+    机制完成 : milestone, tech_start, 2025-08-19, 0d
+    初版完成 : milestone, release, 2025-09-03, 0d
+</code></pre></div>
+
+<h2 id="_5">柱状图</h2>
+<div class="mermaid">---
+config:
+    xyChart:
+        width: 900
+        height: 600
+        showDataLabel: true
+    themeVariables:
+        xyChart:
+            titleColor: "#ff0000"
+---
+xychart-beta
+    title "销售收入"
+    x-axis [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    y-axis "收入（以美元为单位）" 4000 --> 11000
+    bar [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
+    line [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]</div>
+
+<div class="highlight"><pre><span></span><code>---
+config:
+    xyChart:
+        width: 900
+        height: 600
+        showDataLabel: true
+    themeVariables:
+        xyChart:
+            titleColor: &quot;#ff0000&quot;
+---
+xychart-beta
+    title &quot;销售收入&quot;
+    x-axis [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    y-axis &quot;收入（以美元为单位）&quot; 4000 --&gt; 11000
+    bar [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
+    line [5000, 6000, 7500, 8200, 9500, 10500, 11000, 10200, 9200, 8500, 7000, 6000]
+</code></pre></div></div><div class="post__license"><strong><strong>本文作者：</strong>Mansifield </strong><strong><p>版权声明：本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> 协议授权</p></strong><strong><strong>转载需注明作者及原文链接： </strong><a href="https://glyphite.github.io/JSIQBZ/">https://glyphite.github.io/JSIQBZ/</a></strong></div><div class="post-footer__meta"><p></p></div><div class="post-tags"><a href="/tags/杂谈/" class="post-tags__link button"># 杂谈</a></div></article><aside class="post-sidebar"><ul class="toc-list">
+<li><a href="#_1">参数配置</a></li>
+<li><a href="#_2">流程图</a></li>
+<li><a href="#_3">时序图</a></li>
+<li><a href="#_4">甘特图</a></li>
+<li><a href="#_5">柱状图</a></li>
+</ul></aside></div><a class="btn-toc button" id="btn-toc" tabindex="0"><svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg"><path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path></svg></a><div class="toc-menus" id="toc-menus"><ul class="toc-list">
+<li><a href="#_1">参数配置</a></li>
+<li><a href="#_2">流程图</a></li>
+<li><a href="#_3">时序图</a></li>
+<li><a href="#_4">甘特图</a></li>
+<li><a href="#_5">柱状图</a></li>
+</ul></div><div class="nav"><div class="nav__prev"><a href="/ITOQFW/" class="nav__link"><div><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M589.088 790.624L310.464 512l278.624-278.624 45.248 45.248L400.96 512l233.376 233.376z" fill="#808080"></path></svg></div><div><div class="nav__label">上一篇</div><div class="nav__title">Hexo优化及复更通知</div></div></a></div><div class="nav__next"><a href="/DRCWKX/" class="nav__link"><div><div class="nav__label">下一篇</div><div class="nav__title">Note标签的用法</div></div><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M434.944 790.624l-45.248-45.248L623.04 512l-233.376-233.376 45.248-45.248L713.568 512z" fill="#808080"></path></svg></div></a></div></div></div></main><footer class="footer"><p class="footer-copyright">Copyright © 2021&nbsp;-&nbsp;2026 <a href="/">晝行燈</a></p><p>Powered by Python &nbsp;|&nbsp; Theme - Cards</p></footer></div><script src="https://cdn.jsdelivr.net/npm/mermaid@11.8.0/dist/mermaid.min.js"></script><script>if (window.mermaid) { mermaid.initialize({ startOnLoad: true, theme: 'default' }); }</script><style>.mermaid{display:block;margin:0 auto;text-align:center}.mermaid svg{max-width:100%;overflow:visible}@media screen and (max-width:768px){.mermaid{transform:scale(.9);transform-origin:center}}</style></body></html>

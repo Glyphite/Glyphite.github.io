@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="renderer" content="webkit"><meta name="force-rendering" content="webkit"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta name="HandheldFriendly" content="True"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><title>Hexo优化及复更通知 | 晝行燈</title><meta name="keywords" content="游戏开发"><meta name="description" content="博客"><meta property="og:type" content="article"><meta property="og:title" content="Hexo优化及复更通知"><meta property="og:url" content="https://glyphite.github.io/ITOQFW/"><meta property="og:site_name" content="晝行燈"><meta property="og:description" content="博客"><meta property="og:locale" content="zh_CN"><meta property="article:author" content="Mansifield"><meta property="article:tag" content="游戏开发"><meta name="twitter:card" content="summary_large_image"><link rel="stylesheet" href="/css/style/main.css"><link rel="stylesheet" id="hl-default-theme" href="/css/highlight/pygments.css" media="all"><link rel="stylesheet" id="hl-dark-theme" href="/css/highlight/pygments.dark.css" media="none"><link rel="stylesheet" href="/css/style/dark.css"><script src="/js/darkmode.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></head><body><div id="app" tabindex="-1"><header class="header"><div class="header__left"><a href="/" class="button"><span class="logo__text">主页</span></a></div><div class="header__right"><div class="navbar__menus"><a href="/tags/" class="navbar-menu button">标签</a> <a href="/archives/" class="navbar-menu button">归档</a> <a href="/about/" class="navbar-menu button">关于</a></div><a href="/search/" id="btn-search"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg> </a><a href="javaScript:void(0);" id="btn-toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg> </a><a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="24" height="24" fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a><div class="dropdown-menus" id="dropdown-menus"><a href="/tags/" class="dropdown-menu button">标签</a> <a href="/archives/" class="dropdown-menu button">归档</a> <a href="/about/" class="dropdown-menu button">关于</a></div></div></header><div class="cover"><div class="cover__logo"><img no-lazy alt="author Image" class="cover__avatar" src="/logo.svg"></div><div class="cover__intro"><p>白日昏灯，且照人间路</p></div></div><main class="main"><div class="post-wrapper"><div class="post-title"><h1 class="post-title__text">Hexo优化及复更通知</h1><div class="post-title__meta"><a href="/archives/2025/04/" class="post-meta__date button">乙巳年 04月20日</a></div></div><div class="post-container"><article class="post post__with-toc content-card"><div class="post__header"></div><div class="post__content"><p>好久没更新了，今天优化一下博客的配置，折腾折腾。</p>
+<h2 id="_1">优化的部分</h2>
+<ol>
+<li>
+<p>删除了多余的插件，从18个减少到了6个，具体有两个过时的Images插件，两个用不上的style渲染插件，以及过期的插件。</p>
+</li>
+<li>
+<p>插入图片改用了更精简的写法，从 <code>{% Hexo_images/asset_img 20241010.png %}</code> 改为了 <code>![](20241010.png)</code> 。另外，我修改了CSS布局，现在图片改为了默认居中，不再需要使用在外部包裹<code>&lt;center&gt;&lt;/center&gt;</code> 的写法了。</p>
+</li>
+<li>
+<p>文章底部添加了版权声明，并且修改了主题默认版权声明顺序，添加了默认加粗格式。</p>
+</li>
+<li>
+<p>添加了文章封面页和简介功能，并修复了手动简介会位于文章卡片底部的BUG，添加了<code>&lt;p&gt;</code>标签。</p>
+</li>
+<li>
+<p>按个人审美修改了背景色，卡片圆角和宽度、间距等。</p>
+</li>
+<li>
+<p>主页Logo进行了重绘，现在是SVG格式的矢量图，能够无限无损放大。</p>
+</li>
+<li>
+<p>时间显示从<code>2025-12-31</code>改为了<code>乙巳年 冬 腊月卅一</code>，用农历格式来写新历好像有点不伦不类，不过管他呢，好看就行。</p>
+</li>
+<li>
+<p>添加了标签模块 <code>Note</code>，预设了一些标签。</p>
+</li>
+<li>
+<p>添加了图片懒加载模块 <code>Lazy_load</code>，并修改主题预设为距离屏幕300px时即开始加载图片，以及如果图片还没加载好就离开了图片，就停止加载。</p>
+</li>
+<li>
+<p>添加了代码压缩模块 <code>hexo-neat</code>，能大概减少15%左右的体积，并提高浏览速度。</p>
+</li>
+<li>
+<p>网页链接优化，自己写了一个插件，使用arc32的哈希算法代替原本的日期命名方式，从原本的 <code>https://mansifield.pages.dev/2024.12.01/01/</code> 改成了 <code>https://mansifield.pages.dev/gb0uco/</code> 这样的形式，链接固定为6位数，并且不会为纯数字或者纯字母（个人强迫症）。</p>
+</li>
+<li>
+<p>语法高亮完善，之前一直没时间弄，今天算是补完了，实现了GDScript代码的语法高亮。</p>
+</li>
+<li>
+<p>之后有需求的话，可能会增加一些流程图，数学公式之类的功能，目前还用不上，先待定。</p>
+</li>
+</ol>
+<h2 id="_2">复更通知</h2>
+<p>大概五月份复更。</p>
+<p>不过……由于旧项目太久没做了，一下子不知道从哪入手。然后又刚好有个朋友找我说他建模大成，想做个游戏。</p>
+<p>我之后打算弄个新游戏，剧情游戏，很小的体量，大概会比较快做完。</p>
+<p>当然，说是比较快，实际做起来可能也得一年半载了。</p></div><div class="post__license"><strong><strong>本文作者：</strong>Mansifield </strong><strong><p>版权声明：本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a> 协议授权</p></strong><strong><strong>转载需注明作者及原文链接： </strong><a href="https://glyphite.github.io/ITOQFW/">https://glyphite.github.io/ITOQFW/</a></strong></div><div class="post-footer__meta"><p></p></div><div class="post-tags"><a href="/tags/杂谈/" class="post-tags__link button"># 杂谈</a></div></article><aside class="post-sidebar"><ul class="toc-list">
+<li><a href="#_1">优化的部分</a></li>
+<li><a href="#_2">复更通知</a></li>
+</ul></aside></div><a class="btn-toc button" id="btn-toc" tabindex="0"><svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg"><path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path></svg></a><div class="toc-menus" id="toc-menus"><ul class="toc-list">
+<li><a href="#_1">优化的部分</a></li>
+<li><a href="#_2">复更通知</a></li>
+</ul></div><div class="nav"><div class="nav__prev"><a href="/MRWAXT/" class="nav__link"><div><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M589.088 790.624L310.464 512l278.624-278.624 45.248 45.248L400.96 512l233.376 233.376z" fill="#808080"></path></svg></div><div><div class="nav__label">上一篇</div><div class="nav__title">AVG - 赤红之夜</div></div></a></div><div class="nav__next"><a href="/JSIQBZ/" class="nav__link"><div><div class="nav__label">下一篇</div><div class="nav__title">Mermaid图形的用法</div></div><svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M434.944 790.624l-45.248-45.248L623.04 512l-233.376-233.376 45.248-45.248L713.568 512z" fill="#808080"></path></svg></div></a></div></div></div></main><footer class="footer"><p class="footer-copyright">Copyright © 2021&nbsp;-&nbsp;2026 <a href="/">晝行燈</a></p><p>Powered by Python &nbsp;|&nbsp; Theme - Cards</p></footer></div><script src="https://cdn.jsdelivr.net/npm/mermaid@11.8.0/dist/mermaid.min.js"></script><script>if (window.mermaid) { mermaid.initialize({ startOnLoad: true, theme: 'default' }); }</script><style>.mermaid{display:block;margin:0 auto;text-align:center}.mermaid svg{max-width:100%;overflow:visible}@media screen and (max-width:768px){.mermaid{transform:scale(.9);transform-origin:center}}</style></body></html>
