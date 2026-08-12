@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D 模型预览</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #1a1a2e; }
+  #viewer { width: 100%; height: 100%; display: block; }
+  #ui { position: fixed; top: 16px; right: 16px; z-index: 10; }
+  #ui button {
+    background: #16213e; color: #e0e0e0; border: 1px solid #0f3460;
+    padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 13px;
+    transition: background .2s; margin-left: 8px;
+  }
+  #ui button:hover { background: #0f3460; }
+  #loading {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    color: #aaa; font-size: 14px; z-index: 5;
+  }
+  #info {
+    position: fixed; bottom: 16px; left: 16px; z-index: 10;
+    color: #888; font-size: 12px; font-family: monospace;
+  }
+</style>
+</head>
+<body>
+<canvas id="viewer"></canvas>
+<div id="ui">
+  <button id="auto-rotate">⏸ 停止旋转</button>
+  <button id="reset-view">🔄 重置视角</button>
+</div>
+<div id="loading">加载中...</div>
+<div id="info">拖拽旋转 · 滚轮缩放 · 右键平移</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+const params = new URLSearchParams(location.search);
+const modelFile = params.get('model') || '医用包装盒.glb';
+
+const canvas = document.getElementById('viewer');
+const loadingEl = document.getElementById('loading');
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.2;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x1a1a2e);
+
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 2.0;
+
+const pmremGenerator = new THREE.PMREMGenerator(renderer);
+scene.environment = pmremGenerator.fromScene(new THREE.Scene(), 0.04).texture;
+
+// 四点摄影灯光
+const frontLight = new THREE.DirectionalLight(0xffffff, 3.5);
+frontLight.position.set(0, 2, 5);
+scene.add(frontLight);
+
+const leftBackLight = new THREE.DirectionalLight(0xdce8ff, 2.0);
+leftBackLight.position.set(-4, 2, -3);
+scene.add(leftBackLight);
+
+const rightBackLight = new THREE.DirectionalLight(0xffe4d0, 1.8);
+rightBackLight.position.set(4, 1, -3);
+scene.add(rightBackLight);
+
+const bottomLight = new THREE.DirectionalLight(0xffffff, 2.0);
+bottomLight.position.set(0, -3, 2);
+scene.add(bottomLight);
+
+let currentModel = null;
+
+function loadModel(url) {
+  const loader = new GLTFLoader();
+  loader.load(url, (gltf) => {
+    if (currentModel) {
+      scene.remove(currentModel);
+      currentModel.traverse(c => {
+        if (c.isMesh) { c.geometry.dispose(); if (c.material) c.material.dispose(); }
+      });
+    }
+    const model = gltf.scene;
+    currentModel = model;
+    scene.add(model);
+
+    const box = new THREE.Box3().setFromObject(model);
+    const size = box.getSize(new THREE.Vector3()).length();
+    const center = box.getCenter(new THREE.Vector3());
+    model.position.sub(center);
+
+    const fitDistance = size / (2 * Math.tan(Math.PI * camera.fov / 360));
+    camera.position.set(fitDistance * 0.8, fitDistance * 0.5, fitDistance * 0.8);
+    controls.target.set(0, 0, 0);
+    controls.update();
+
+    loadingEl.style.display = 'none';
+  }, undefined, (err) => {
+    console.error('加载失败:', err);
+    loadingEl.textContent = '加载失败: ' + err.message;
+  });
+}
+
+loadModel(modelFile);
+
+const autoBtn = document.getElementById('auto-rotate');
+autoBtn.addEventListener('click', () => {
+  controls.autoRotate = !controls.autoRotate;
+  autoBtn.textContent = controls.autoRotate ? '⏸ 停止旋转' : '▶ 开始旋转';
+});
+
+document.getElementById('reset-view').addEventListener('click', () => {
+  if (!currentModel) return;
+  const box = new THREE.Box3().setFromObject(currentModel);
+  const size = box.getSize(new THREE.Vector3()).length();
+  const fitDistance = size / (2 * Math.tan(Math.PI * camera.fov / 360));
+  camera.position.set(fitDistance * 0.8, fitDistance * 0.5, fitDistance * 0.8);
+  controls.target.set(0, 0, 0);
+  controls.update();
+});
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+</script>
+</body>
+</html>

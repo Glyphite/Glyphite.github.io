@@ -1,0 +1,20 @@
+/* Pygments - monokai (dark) style - token colors only */
+.highlight .hll { background-color: #49483e }
+.highlight .c, .highlight .ch, .highlight .cm, .highlight .cp, .highlight .cpf, .highlight .c1, .highlight .cs { color: #959077 }
+.highlight .err { color: #ED007E; background-color: #1E0010 }
+.highlight .k, .highlight .kc, .highlight .kd, .highlight .kp, .highlight .kr, .highlight .kt { color: #66D9EF }
+.highlight .kn, .highlight .nt, .highlight .ow { color: #FF4689 }
+.highlight .o { color: #FF4689 }
+.highlight .gd { color: #FF4689 }
+.highlight .ge { color: #F8F8F2; font-style: italic }
+.highlight .ges { color: #F8F8F2; font-weight: bold; font-style: italic }
+.highlight .gr, .highlight .gh, .highlight .gi, .highlight .go, .highlight .gp, .highlight .gs, .highlight .gt { color: #F8F8F2 }
+.highlight .gu { color: #959077 }
+.highlight .ld, .highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .mo, .highlight .il { color: #AE81FF }
+.highlight .s, .highlight .sa, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .si, .highlight .sx, .highlight .sr, .highlight .s1, .highlight .ss { color: #E6DB74 }
+.highlight .na, .highlight .nc, .highlight .nd, .highlight .ne, .highlight .nf, .highlight .nx, .highlight .fm { color: #A6E22E }
+.highlight .nb, .highlight .ni, .highlight .nn, .highlight .py, .highlight .nv, .highlight .nl, .highlight .n, .highlight .bp, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm, .highlight .p, .highlight .w { color: #F8F8F2 }
+.highlight .no { color: #66D9EF }
+.highlight .se { color: #AE81FF }
+.highlight .emph { font-style: italic }
+.highlight .strong { font-weight: bold }
