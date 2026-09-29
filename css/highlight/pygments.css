@@ -1,0 +1,37 @@
+/* Pygments - default (light) style - token colors only */
+.highlight .hll { background-color: #ffffcc }
+.highlight .c, .highlight .ch, .highlight .cm, .highlight .cp, .highlight .cpf, .highlight .c1, .highlight .cs { color: #3D7B7B; font-style: italic }
+.highlight .err { border: 1px solid #F00 }
+.highlight .k, .highlight .kc, .highlight .kd, .highlight .kn, .highlight .kr, .highlight .nt { color: #008000; font-weight: bold }
+.highlight .o, .highlight .kp { color: #666 }
+.highlight .gd { color: #A00000 }
+.highlight .ge { font-style: italic }
+.highlight .ges { font-weight: bold; font-style: italic }
+.highlight .gr { color: #E40000 }
+.highlight .gh { color: #000080; font-weight: bold }
+.highlight .gi { color: #008400 }
+.highlight .go { color: #717171 }
+.highlight .gp { color: #000080; font-weight: bold }
+.highlight .gs { font-weight: bold }
+.highlight .gu { color: #800080; font-weight: bold }
+.highlight .gt { color: #04D }
+.highlight .kt { color: #B00040 }
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .mo, .highlight .il { color: #666 }
+.highlight .s, .highlight .sa, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .si, .highlight .sx, .highlight .sr, .highlight .s1, .highlight .ss { color: #BA2121 }
+.highlight .na { color: #687822 }
+.highlight .nb { color: #008000 }
+.highlight .nc { color: #00F; font-weight: bold }
+.highlight .no { color: #800 }
+.highlight .nd { color: #A2F }
+.highlight .ni { color: #717171; font-weight: bold }
+.highlight .ne { color: #CB3F38; font-weight: bold }
+.highlight .nf, .highlight .fm { color: #00F }
+.highlight .nl { color: #767600 }
+.highlight .nn { color: #00F; font-weight: bold }
+.highlight .nv, .highlight .vc, .highlight .vg, .highlight .vi, .highlight .vm { color: #19177C }
+.highlight .ow { color: #A2F; font-weight: bold }
+.highlight .w { color: #BBB }
+.highlight .se { color: #AA5D1F; font-weight: bold }
+.highlight .bp { color: #008000 }
+.highlight .emph { font-style: italic }
+.highlight .strong { font-weight: bold }
