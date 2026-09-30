@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-<!-- source: C:\Users\Administrator\Documents\开发\Blog\koi-studies.html -->
+<!-- source: C:\Users\Administrator\Documents\开发\Blog\source\suvela\index.html -->
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="博客" />
@@ -975,8 +975,13 @@ body {
 header.header { width: 100%; z-index: 40; justify-self: stretch; }
 main.stack-scene { z-index: 2; }
 
-/* .tag-bar 是 position:fixed，需跳过顶栏 */
-.tag-bar { top: calc(var(--suvela-header-h) + 16px); z-index: 30; }
+/* tag-bar 让位顶栏，下移到 header 下方 */
+.tag-bar { top: calc(var(--suvela-header-h) + 16px) !important; }
+
+/* Koi 原 --w 第二项 46.94vh，竖构图卡高 = 46.94 * 1.79 ≈ 84vh，居中后顶 ≈ 8vh 撞 tag-bar。
+   缩到 38vh：高 = 38 * 1.79 ≈ 68vh，居中后顶 ≈ 16vh，稳离 header+tag-bar。
+   --card-ratio-full 不动，文本展开比例正常 */
+:root { --w: min(26.40625vw, 38vh, calc(84vh * var(--card-inv-full, 0.5557))) !important; }
 
 /* Koi 每张 .artwork 内联 --panel/--ink/--accent-card（HSL 硬算），
    必须 !important 覆盖 inline。--panel 选 --bg-color（页面主底）而非
@@ -998,15 +1003,45 @@ main.stack-scene { z-index: 2; }
   border-color: rgba(255, 255, 255 / 0.2);
 }
 
-/* 详情定位：translate:-50% 0 让 top 直接是卡顶，公式干净
-   width 匹配主页 .main { padding: 0 12px }；顶/底各 40 让 X 按钮错开 */
+/* 详情定位：对齐主页 .main 左右 12px；顶让位 X 按钮区（header+12 起、44px 高、留 12 呼吸）
+   width: 主页卡宽 min(1080px, 100vw-24px)；top: header+80 让 X 不撞卡
+   height: 减 top 减 40 底呼吸；translate:0 让 top 直接是卡顶
+   基础态也 fixed+居中，让 position 不变，top/translate 参与 transition 才能连续动画
+   （Koi 基础 relative + 详情 fixed → position 切换不 transition → 视觉跳变） */
+.stack-scene {
+  position: fixed !important;
+  left: 50% !important;
+  top: 50% !important;
+  translate: -50% -50% !important;
+  transition:
+    width var(--expand-dur) var(--expand-ease),
+    height var(--expand-dur) var(--expand-ease),
+    top var(--expand-dur) var(--expand-ease),
+    translate var(--expand-dur) var(--expand-ease),
+    --detail var(--expand-dur) var(--expand-ease),
+    --card-ratio var(--expand-dur) var(--expand-ease);
+}
 .stack-scene.is-focus {
-  width: min(960px, calc(100vw - 48px)) !important;
-  height: calc(100dvh - var(--suvela-header-h) - 80px) !important;
-  top: calc(var(--suvela-header-h) + 40px) !important;
+  width: min(1080px, calc(100vw - 24px)) !important;
+  height: calc(100dvh - var(--suvela-header-h) - 80px - 40px) !important;
+  top: calc(var(--suvela-header-h) + 80px) !important;
   translate: -50% 0 !important;
 }
+/* 跳变真因：Koi 给 .stack-shell/.artwork 写内联 rotateZ/scale，
+   .is-focus 时 CSS 硬切 transform:none !important → transform 不插值，瞬变。
+   补 transform transition 让 none 也能平滑过渡（从 rotateZ(0) scale(1) 到 none 是连续态） */
+.stack-shell, .artwork {
+  transition:
+    transform var(--expand-dur) var(--expand-ease),
+    opacity var(--expand-dur) var(--expand-ease);
+}
+/* tag-bar 让出详情卡顶部呼吸，避开顶栏 X 按钮 */
 .stack-scene.is-focus ~ .focus-close { top: calc(var(--suvela-header-h) + 12px); }
+
+/* 正文插图居中：容器 margin-inline:auto 水平居中（img width:100% 跟着走），
+   figcaption text-align:center。保持 height:auto 比例不变 */
+.detail-figure { margin-inline: auto !important; }
+.detail-figure figcaption { text-align: center !important; }
 </style>
 <script src="/js/darkmode.js"></script><script>(function(){// --suvela-header-h 供 .tag-bar/.focus-close/.is-focus 避让顶栏function fit(){var h=document.querySelector('header.header');if(h)document.documentElement.style.setProperty("--suvela-header-h",h.offsetHeight+"px");}fit();['resize','load'].forEach(function(e){window.addEventListener(e,fit);});document.addEventListener("DOMContentLoaded",fit);// Koi 的 card.panelColor 从 element.style.getPropertyValue('--panel') 读，只认 inline。// CSS !important 覆盖不了这条数据源。patch 让三变量回落到博客主色，// 配合 .artwork{--panel:…!important}，DOM 与 canvas 底色一致。var orig=CSSStyleDeclaration.prototype.getPropertyValue;CSSStyleDeclaration.prototype.getPropertyValue=function(k){var cs=getComputedStyle(document.documentElement);if(k==='--panel')return cs.getPropertyValue('--bg-color').trim();if(k==='--ink')return cs.getPropertyValue('--body-color').trim();if(k==='--accent-card')return cs.getPropertyValue('--main-color').trim();return orig.call(this,k);};})();</script>
 </head>
