@@ -340,18 +340,10 @@
         flex-direction: column;
         overflow: hidden;
         container-type: inline-size;
-        /* 描边画在自身 border 上：天然跟随 rotateZ/scale，也不随内容滚 */
-        border: 1px solid transparent;
-        background:
-          linear-gradient(var(--panel), var(--panel)) padding-box,
-          linear-gradient(
-              145deg,
-              rgb(255 255 255 / 0.22),
-              rgb(238 230 208 / 0.11) 42%,
-              rgb(255 255 255 / 0.035) 72%,
-              rgb(201 92 63 / 0.19)
-            )
-            border-box;
+        /* 深 panel 铺整块 .artwork，图区与两侧留白共用同一色；
+           文本区由 .copy-panel 的 var(--bg-content-color) 覆盖成卡片底 */
+        border: 1px solid var(--panel);
+        background: var(--panel);
         border-radius: var(--edge);
         box-shadow:
           0 2.6cqw 6.5cqw rgb(0 0 0 / 0.38),
@@ -380,10 +372,11 @@
         /* 过渡写在本层：与卡片展开同时长同曲线，且不受 .drag-plane 的 70ms 覆盖 */
         transition:
           width var(--expand-dur) var(--expand-ease),
-          --veil var(--expand-dur) var(--expand-ease);
-        filter: blur(calc(var(--veil) * 2.6cqw))
-          saturate(calc(1 - var(--veil) * 0.18)) contrast(calc(1 - var(--veil) * 0.07));
-        transform: scale(calc(1 + var(--veil) * 0.085)); /* 8.5% 放大盖住模糊后的半透明边缘 */
+          filter 200ms ease;
+      }
+      /* 收起态悬停加暗，默认显示原图像素 */
+      .stack-scene:not(.is-focus):hover .stack-shell.is-active .image-field {
+        filter: brightness(0.7);
       }
       /* 写实素材唯一的差别在缩放采样：nearest 会出锯齿与摩尔纹，交回浏览器平滑 */
       .artwork[data-smooth] .image-field {
@@ -407,7 +400,7 @@
         justify-content: flex-start;
         gap: calc(var(--expand, 0) * 1.45cqw);
         padding: var(--panel-pad) var(--panel-pad-x);
-        background: var(--panel);
+        background: var(--bg-content-color, var(--paper));
         color: var(--ink);
         box-shadow: inset 0 1px rgb(238 230 208 / 0.09);
         overflow: clip;
@@ -990,13 +983,11 @@ main.stack-scene { z-index: 2; }
   :root { --w: min(26.40625vw, 38vh, calc(84vh * var(--card-inv-full, 0.5557))) !important; }
 }
 
-/* Koi 每张 .artwork 内联 --panel/--ink/--accent-card（HSL 硬算），
-   必须 !important 覆盖 inline。--panel 选 --bg-color（页面主底）而非
-   --bg-content-color（卡片底），让整卡与主页背景无缝，避免详情态图片两侧
-   出现"白色区域"。canvas 底色由 SUVELA_JS 的 getPropertyValue patch 回落到
-   同一变量，DOM 与 canvas 一致 */
+/* Koi 每张 .artwork 内联 --panel/--ink/--accent-card（HSL 硬算）。
+   --ink/--accent-card 覆盖成博客主色，让卡内文字与强调色跟主题走；
+   --panel 不覆盖：保留 Koi 从素材算出的深底，透明底图两侧才不会露出
+   页面背景。canvas 底色由 JS 从 element.style 直接读 inline，此处无影响 */
 .artwork, .artwork .image-field {
-  --panel: var(--bg-color) !important;
   --ink: var(--body-color) !important;
   --accent-card: var(--main-color) !important;
 }
@@ -1050,7 +1041,7 @@ main.stack-scene { z-index: 2; }
 .detail-figure { margin-inline: auto !important; }
 .detail-figure figcaption { text-align: center !important; }
 </style>
-<script src="/js/darkmode.js"></script><script>(function(){// --suvela-header-h 供 .tag-bar/.focus-close/.is-focus 避让顶栏function fit(){var h=document.querySelector('header.header');if(h)document.documentElement.style.setProperty("--suvela-header-h",h.offsetHeight+"px");}fit();['resize','load'].forEach(function(e){window.addEventListener(e,fit);});document.addEventListener("DOMContentLoaded",fit);// Koi 的 card.panelColor 从 element.style.getPropertyValue('--panel') 读，只认 inline。// CSS !important 覆盖不了这条数据源。patch 让三变量回落到博客主色，// 配合 .artwork{--panel:…!important}，DOM 与 canvas 底色一致。var orig=CSSStyleDeclaration.prototype.getPropertyValue;CSSStyleDeclaration.prototype.getPropertyValue=function(k){var cs=getComputedStyle(document.documentElement);if(k==='--panel')return cs.getPropertyValue('--bg-color').trim();if(k==='--ink')return cs.getPropertyValue('--body-color').trim();if(k==='--accent-card')return cs.getPropertyValue('--main-color').trim();return orig.call(this,k);};})();</script>
+<script src="/js/darkmode.js"></script><script>(function(){// --suvela-header-h 供 .tag-bar/.focus-close/.is-focus 避让顶栏function fit(){var h=document.querySelector('header.header');if(h)document.documentElement.style.setProperty("--suvela-header-h",h.offsetHeight+"px");}fit();['resize','load'].forEach(function(e){window.addEventListener(e,fit);});document.addEventListener("DOMContentLoaded",fit);// Koi 的 card.ink/accentColor 从 element.style.getPropertyValue 读，只认 inline。// CSS !important 覆盖不了这条数据源。patch 让这两变量回落到博客主色，// 配合 .artwork{--ink/--accent-card:…!important}，DOM 与 canvas 一致。// --panel 不 patch：保留 Koi 从素材算出的深底，避免透明底卡图片两侧露出页面背景。var orig=CSSStyleDeclaration.prototype.getPropertyValue;CSSStyleDeclaration.prototype.getPropertyValue=function(k){var cs=getComputedStyle(document.documentElement);if(k==='--ink')return cs.getPropertyValue('--body-color').trim();if(k==='--accent-card')return cs.getPropertyValue('--main-color').trim();return orig.call(this,k);};})();</script>
 </head>
 <body>
 <header class="header"><div class="header__left"><a href="/" class="button"><span class="logo__text">主页</span></a></div><div class="header__right"><div class="navbar__menus"><a href="/tags/" class="navbar-menu button">标签</a> <a href="/archives/" class="navbar-menu button">归档</a> <a href="/suvela/" class="navbar-menu button">速览</a> <a href="/about/" class="navbar-menu button">关于</a></div><a href="/search/" id="btn-search"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg> </a><a href="javaScript:void(0);" id="btn-toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg> </a><a class="dropdown-icon button" id="btn-dropdown" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="24" height="24" fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a><div class="dropdown-menus" id="dropdown-menus"><a href="/tags/" class="dropdown-menu button">标签</a> <a href="/archives/" class="dropdown-menu button">归档</a> <a href="/suvela/" class="dropdown-menu button">速览</a> <a href="/about/" class="dropdown-menu button">关于</a></div></div></header>
@@ -1121,7 +1112,7 @@ main.stack-scene { z-index: 2; }
           try {
             const { createShader } = await import(
               "https://cdn.jsdelivr.net/npm/shaders@3.0.445/dist/js/bundle.js"
-            );
+             );
             shader = await createShader(
               canvas,
               {
@@ -1876,6 +1867,46 @@ main.stack-scene { z-index: 2; }
         /* 取样缓冲复用一张：每张卡各建一张 40×40 canvas 是浪费。
            用色相直方图而非平均色（后者必然趋于灰），权重 = 饱和度 × 中心度 */
         let hueBuffer = null;
+        /* 背景色取样：边缘一圈众数 → 全图众数 → null。
+           Q=8 量化合并抗锯齿近似色（>>3）；桶内累加 rgb 取平均，非桶中心。
+           桶数据 [count, r_sum, g_sum, b_sum] 单数组，count 即像素数 */
+        const sampleBackground = (card) => {
+          const side = PALETTE.SAMPLE;
+          if (!hueBuffer) {
+            hueBuffer = document.createElement("canvas");
+            hueBuffer.width = hueBuffer.height = side;
+          }
+          const g = hueBuffer.getContext("2d", { willReadFrequently: true });
+          g.clearRect(0, 0, side, side);
+          const fw = card.image.naturalWidth / frameCount(card);
+          g.drawImage(card.image, 0, 0, fw, card.image.naturalHeight, 0, 0, side, side);
+          let data;
+          try {
+            data = g.getImageData(0, 0, side, side).data;
+          } catch {
+            return null;
+          }
+          const sample = (predicate) => {
+            const map = new Map();
+            for (let y = 0; y < side; y++) {
+              for (let x = 0; x < side; x++) {
+                if (!predicate(x, y)) continue;
+                const p = (y * side + x) * 4;
+                if (data[p + 3] < 128) continue;
+                const k = `${data[p] >> 3}|${data[p + 1] >> 3}|${data[p + 2] >> 3}`;
+                let e = map.get(k);
+                if (!e) { e = [0, 0, 0, 0]; map.set(k, e); }
+                e[0]++; e[1] += data[p]; e[2] += data[p + 1]; e[3] += data[p + 2];
+              }
+            }
+            let best = null, bestN = 0;
+            map.forEach((e) => { if (e[0] > bestN) { bestN = e[0]; best = e; } });
+            return best ? [best[1] / best[0], best[2] / best[0], best[3] / best[0]] : null;
+          };
+          const edge = sample((x, y) => x === 0 || y === 0 || x === side - 1 || y === side - 1);
+          if (edge) return edge;
+          return sample(() => true);
+        };
         const sampleHue = (card) => {
           const side = PALETTE.SAMPLE;
           if (!hueBuffer) {
@@ -1913,28 +1944,40 @@ main.stack-scene { z-index: 2; }
           return bins[best] > 0 ? best * 10 + 5 : null;
         };
         const applyPalette = (card) => {
-          const hue = sampleHue(card) ?? PALETTE.BASE_HUE;
+          /* panel 直接取素材边缘色 rgb，不量化 hsl：边缘色就是卡片背景色 */
+          const bg = sampleBackground(card);
+          const hue = (bg
+            ? rgbToHsl(bg[0] / 255, bg[1] / 255, bg[2] / 255).h
+            : sampleHue(card)) ?? PALETTE.BASE_HUE;
           const { PANEL, ACCENT, INK } = PALETTE;
           /* 墨色向纸色拉一点，纯色相会让正文跟着素材一起偏 */
           const inkHue =
             PALETTE.BASE_HUE + (((hue - PALETTE.BASE_HUE + 540) % 360) - 180) * INK.pull;
-          setVars(card.artwork.style, {
-            "--panel": hsl(hue, PANEL.s, PANEL.l),
+          const vars = {
             "--accent-card": hsl(hue + ACCENT.shift, ACCENT.s, ACCENT.l),
             "--ink": hsl(inkHue, INK.s, INK.l),
-          });
+          };
+          vars["--panel"] = bg
+            ? `rgb(${bg.map((v) => Math.round(v)).join(" ")})`
+            : hsl(hue, PANEL.s, PANEL.l);
+          setVars(card.artwork.style, vars);
           card.panelColor = card.artwork.style.getPropertyValue("--panel");
           card.staticCache = null;
           card.dirty = true;
         };
+        /* 铺 canvas 全像素而非 imageW/H 逻辑区：canvas 与 CSS aspect-ratio 尺寸偶有不一致时，
+           走 setTransform(scale) 的 fillRect 会露出边角黑底（alpha:false 上下文清屏后是黑），
+           直接按 canvas.width/height 用单位矩阵填最稳。 */
         const paintPanel = (g, card) => {
-          g.setTransform(card.scale, 0, 0, card.scale, 0, 0);
+          g.setTransform(1, 0, 0, 1, 0, 0);
           g.fillStyle = card.panelColor;
-          g.fillRect(0, 0, card.imageW, card.imageH);
+          g.fillRect(0, 0, g.canvas.width, g.canvas.height);
         };
         /* 底 + 素材：静态缓存与即时绘制走同一条路径，别各画一遍 */
         const paintCard = (g, card, source) => {
           paintPanel(g, card);
+          /* paintPanel 已用单位矩阵填 canvas 全像素；drawSource 走 imageW/H 逻辑坐标，需还原缩放矩阵 */
+          g.setTransform(card.scale, 0, 0, card.scale, 0, 0);
           drawSource(g, card, source);
         };
         const getStaticCache = (card) => {

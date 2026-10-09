@@ -21,16 +21,6 @@
   :root:not([data-user-color-scheme]) .article__license {
     background-color: rgba(255,255,255,0.2);
   }
-  :root:not([data-user-color-scheme]) .article__content img {
-    opacity: 0.8;
-    -webkit-filter: brightness(0.8) contrast(1.2);
-    filter: brightness(0.8) contrast(1.2);
-  }
-  :root:not([data-user-color-scheme]) .article__content img:hover {
-    opacity: 1;
-    -webkit-filter: none;
-    filter: none;
-  }
   :root:not([data-user-color-scheme]) .sliding-fold,
   :root:not([data-user-color-scheme]) details {
     background: #333;
@@ -58,16 +48,6 @@
 }
 [data-user-color-scheme="dark"] .article__license {
   background-color: rgba(255,255,255,0.2);
-}
-[data-user-color-scheme="dark"] .article__content img {
-  opacity: 0.8;
-  -webkit-filter: brightness(0.8) contrast(1.2);
-  filter: brightness(0.8) contrast(1.2);
-}
-[data-user-color-scheme="dark"] .article__content img:hover {
-  opacity: 1;
-  -webkit-filter: none;
-  filter: none;
 }
 [data-user-color-scheme="dark"] .sliding-fold,
 [data-user-color-scheme="dark"] details {
